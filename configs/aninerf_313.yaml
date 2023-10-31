@@ -4,15 +4,15 @@ gpus: [0]
 parent_cfg: 'configs/aninerf_s9p.yaml'
 
 train_dataset:
-    data_root: '/share/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313'
+    data_root: '/public/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313'
     human: 'CoreView_313'
-    ann_file: '/share/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313/annots.npy'
+    ann_file: '/public/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313/annots.npy'
     split: 'train'
 
 test_dataset:
-    data_root: '/share/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313'
+    data_root: '/public/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313'
     human: 'CoreView_313'
-    ann_file: '/share/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313/annots.npy'
+    ann_file: '/public/home/gpu2002/xxl/datasets/zju_mocap/CoreView_313/annots.npy'
     split: 'test'
 
 test:
