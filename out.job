@@ -1,0 +1,5 @@
+查看当前配置文件的network： lib.networks.bw_deform.tpose_nerf_network lib/networks/bw_deform/tpose_nerf_network.py
+查看当前配置文件的trainer： lib.train.trainers.tpose_trainer lib/train/trainers/tpose_trainer.py
+查看当前配置文件的renderer： lib.networks.renderer.tpose_renderer lib/networks/renderer/tpose_renderer.py
+查看当前配置文件的dataset： lib.datasets.tpose_dataset lib/datasets/tpose_dataset.py
+查看当前配置文件的dataset： lib.datasets.tpose_dataset lib/datasets/tpose_dataset.py

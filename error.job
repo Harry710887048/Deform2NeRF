@@ -1,0 +1,38 @@
+/var/spool/slurmd/job00787/slurm_script: line 17: module: command not found
+Traceback (most recent call last):
+  File "train_net.py", line 114, in <module>
+    main()
+  File "train_net.py", line 110, in main
+    train(cfg, network)
+  File "train_net.py", line 45, in train
+    trainer.train(epoch, train_loader, optimizer, recorder)  # 当前训练批次
+  File "/share/home/gpu2002/xxl/animatable_nerf/lib/train/trainers/trainer.py", line 54, in train
+    for iteration, batch in enumerate(data_loader):  # 开始遍历数据加载器
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 681, in __next__
+    data = self._next_data()
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 1376, in _next_data
+    return self._process_data(data)
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 1402, in _process_data
+    data.reraise()
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/_utils.py", line 461, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/_utils/worker.py", line 302, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    return self.collate_fn(data)
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/_utils/collate.py", line 160, in default_collate
+    return elem_type({key: default_collate([d[key] for d in batch]) for key in elem})
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/_utils/collate.py", line 160, in <dictcomp>
+    return elem_type({key: default_collate([d[key] for d in batch]) for key in elem})
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/_utils/collate.py", line 149, in default_collate
+    return default_collate([torch.as_tensor(b) for b in batch])
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/utils/data/_utils/collate.py", line 139, in default_collate
+    storage = elem.storage()._new_shared(numel, device=elem.device)
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/storage.py", line 607, in _new_shared
+    untyped_storage = torch._UntypedStorage._new_shared(size * self.element_size(), device=device)
+  File "/share/home/gpu2002/miniconda3/envs/animatable_nerf/lib/python3.7/site-packages/torch/storage.py", line 206, in _new_shared
+    return cls._new_using_filename_cpu(size)
+RuntimeError: Cannot allocate memory
+
