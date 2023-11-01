@@ -273,3 +273,77 @@ class BackwardBlendWeight(nn.Module):
         bw = torch.log(smpl_bw + 1e-9) + bw
         bw = F.softmax(bw, dim=1)
         return bw
+
+class NonRigidMLP(nn.Module):
+    def __init__(self,
+                 pos_embed_size=3, 
+                 condition_code_size=69,
+                 mlp_width=128,
+                 mlp_depth=6,
+                 skips=None):
+        super(NonRigidMLP, self).__init__()
+
+        self.skips = [4] if skips is None else skips
+        
+        block_mlps = [nn.Linear(pos_embed_size+condition_code_size, 
+                                mlp_width), nn.ReLU()]
+        
+        layers_to_cat_inputs = []
+        for i in range(1, mlp_depth):
+            if i in self.skips:
+                layers_to_cat_inputs.append(len(block_mlps))
+                block_mlps += [nn.Linear(mlp_width+pos_embed_size, mlp_width), 
+                               nn.ReLU()]
+            else:
+                block_mlps += [nn.Linear(mlp_width, mlp_width), nn.ReLU()]
+
+        block_mlps += [nn.Linear(mlp_width, 3)]
+
+        self.block_mlps = nn.ModuleList(block_mlps)
+        initseq(self.block_mlps)
+
+        self.layers_to_cat_inputs = layers_to_cat_inputs
+
+        # init the weights of the last layer as very small value
+        # -- at the beginning, we hope non-rigid offsets are zeros 
+        init_val = 1e-5
+        last_layer = self.block_mlps[-1]
+        last_layer.weight.data.uniform_(-init_val, init_val)
+        last_layer.bias.data.zero_()
+
+    def initseq(s):
+        """ Initialized weights of all modules in a module sequence.
+    
+            Args:
+                s (torch.nn.Sequential)
+        """ 
+        for a, b in zip(s[:-1], s[1:]):
+            if isinstance(b, nn.ReLU):
+                initmod(a, nn.init.calculate_gain('relu'))
+            elif isinstance(b, nn.LeakyReLU):
+                initmod(a, nn.init.calculate_gain('leaky_relu', b.negative_slope))
+            elif isinstance(b, nn.Sigmoid):
+                initmod(a)
+            elif isinstance(b, nn.Softplus):
+                initmod(a)
+            else:
+                initmod(a)
+        initmod(s[-1])
+
+    def forward(self, pos_embed, pos_xyz, condition_code, viewdirs=None, **_):
+        h = torch.cat([condition_code, pos_embed], dim=-1)
+        if viewdirs is not None:
+            h = torch.cat([h, viewdirs], dim=-1)
+
+        for i in range(len(self.block_mlps)):
+            if i in self.layers_to_cat_inputs:
+                h = torch.cat([h, pos_embed], dim=-1)
+            h = self.block_mlps[i](h)
+        trans = h
+
+        result = {
+            'xyz': pos_xyz + trans,
+            'offsets': trans
+        }
+        
+        return result
