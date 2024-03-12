@@ -41,7 +41,6 @@ Take the test on `S9` as an example.
 ![image](https://github.com/Harry710887048/Deform2NeRF/assets/75151571/2df9eca0-9a30-40f8-b100-7a81c8e105e0)
 
 
-
 ### Visualization on Human3.6M
 
 Take the visualization on `S9` as an example.
@@ -92,8 +91,6 @@ Take the training on `S9` as an example. The command lines for training are reco
 ## Run the code on ZJU-MoCap
 
 If someone wants to download the ZJU-Mocap dataset, please fill in the [agreement](https://zjueducn-my.sharepoint.com/:b:/g/personal/pengsida_zju_edu_cn/EUPiybrcFeNEhdQROx4-LNEBm4lzLxDwkk1SBcNWFgeplA?e=BGDiQh), and email me (pengsida@zju.edu.cn) and cc Xiaowei Zhou (xwzhou@zju.edu.cn) to request the download link.
-
-We provide the pretrained models at [here](https://zjueducn-my.sharepoint.com/:f:/g/personal/pengsida_zju_edu_cn/Et7h-48T0_xGtjNGXHwD1-gBPUNJZqd9VPTnsQlkSLktOw?e=TyCnuY).
 
 ### Test on ZJU-MoCap
 
@@ -160,54 +157,6 @@ Take the training on `313` as an example. The command lines for training are rec
     ```shell
     tensorboard --logdir data/record/deform
     ```
-
-## Extended Version
-
-Addtional training and test commandlines are recorded in [train.sh](train.sh) and [test.sh](test.sh).
-
-Moreover, we compiled a list of all possible commands to run in [extension.sh](extension.sh) using on the S9 sequence of the Human3.6M dataset.
-
-This include training, evaluating and visualizing the original Animatable NeRF implementation and all three extented versions.
-
-Here we list the portion of the commands for the SDF-PDF configuration:
-
-```shell
-# extension: anisdf_pdf
-
-# evaluating on training poses for anisdf_pdf
-python run.py --type evaluate --cfg_file configs/sdf_pdf/anisdf_pdf_s9p.yaml exp_name anisdf_pdf_s9p resume True
-
-# evaluating on novel poses for anisdf_pdf
-python run.py --type evaluate --cfg_file configs/sdf_pdf/anisdf_pdf_s9p.yaml exp_name anisdf_pdf_s9p resume True test_novel_pose True
-
-# visualizing novel view of 0th frame for anisdf_pdf
-python run.py --type visualize --cfg_file configs/sdf_pdf/anisdf_pdf_s9p.yaml exp_name anisdf_pdf_s9p resume True vis_novel_view True begin_ith_frame 0
-
-# visualizing animation of 3rd camera for anisdf_pdf
-python run.py --type visualize --cfg_file configs/sdf_pdf/anisdf_pdf_s9p.yaml exp_name anisdf_pdf_s9p resume True vis_pose_sequence True test_view "3,"
-
-# generating posed mesh for anisdf_pdf
-python run.py --type visualize --cfg_file configs/sdf_pdf/anisdf_pdf_s9p.yaml exp_name anisdf_pdf_s9p vis_posed_mesh True
-
-# training base model for anisdf_pdf
-python train_net.py --cfg_file configs/sdf_pdf/anisdf_pdf_s9p.yaml exp_name anisdf_pdf_s9p resume False
-```
-
-To run Animatable NeRF on other officially supported datasets, simply change the `--cfg_file` and `exp_name` parameters.
-
-Note that for Animatable NeRF with pose-dependent displacement field (NeRF-PDF) and Animatable Neural Surface with pose-dependent displacement field (SDF-PDF), there's no need for training the blend weight fields of unseen human poses.
-
-### MonoCap dataset
-
-MonoCap is a dataset composed by authors of [animatable sdf](https://zju3dv.github.io/animatable_sdf/) from [DeepCap](https://people.mpi-inf.mpg.de/~mhaberma/projects/2020-cvpr-deepcap/) and [DynaCap](https://people.mpi-inf.mpg.de/~mhaberma/projects/2021-ddc/).
-
-Since the license of [DeepCap](https://people.mpi-inf.mpg.de/~mhaberma/projects/2020-cvpr-deepcap/) and [DynaCap](https://people.mpi-inf.mpg.de/~mhaberma/projects/2021-ddc/) dataset does not allow us to distribute its data, we cannot release the processed MonoCap dataset publicly. If you are interested in the processed data, please download the raw data from [here](https://gvv-assets.mpi-inf.mpg.de/) and email me for instructions on how to process the data.
-
-### SyntheticHuman Dataset
-
-SyntheticHuman is a dataset created by authors of [animatable sdf](https://zju3dv.github.io/animatable_sdf/). It contains multi-view videos of 3D human rendered from characters in the [RenderPeople](https://renderpeople.com/) dataset along with the groud truth 3D model.
-
-Since the license of the [RenderPeople](https://renderpeople.com/) dataset does not allow distribution of the 3D model, we cannot realease the processed SyntheticHuman dataset publicly. If you are interested in this dataset, please email me for instructions on how to generate the data.
 
 ## Citation
 
