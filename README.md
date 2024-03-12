@@ -1,6 +1,6 @@
 # Deform2NeRF: Non-Rigid Deformation and 2D–3D Feature Fusion with Cross-Attention for Dynamic Human Reconstruction
 
-### [Project Page](https://github.com/Harry710887048/Deform2NeRF/) | [Paper](https://www.mdpi.com/2079-9292/12/21/4382) | [Data](https://github.com/zju3dv/animatable_nerf/blob/master/INSTALL.md#zju-mocap-dataset) 
+### [Project Page](https://github.com/Harry710887048/Deform2NeRF/tree/master) | [Paper](https://www.mdpi.com/2079-9292/12/21/4382) | [Data](https://github.com/zju3dv/animatable_nerf/blob/master/INSTALL.md#zju-mocap-dataset) 
 
 ![image](https://github.com/Harry710887048/Deform2NeRF/assets/75151571/7f89ff55-fa2b-496f-8a76-49b8a80c4b92)
 
