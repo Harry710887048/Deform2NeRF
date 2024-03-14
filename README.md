@@ -38,7 +38,8 @@ Take the test on `S9` as an example.
     python run.py --type evaluate --cfg_file configs/aninerf_s9p.yaml exp_name aninerf_s9p_full resume True aninerf_animation True init_aninerf aninerf_s9p test_novel_pose True
     ```
     
-![image](https://github.com/Harry710887048/Deform2NeRF/assets/75151571/2df9eca0-9a30-40f8-b100-7a81c8e105e0)
+![image](https://github.com/Harry710887048/Deform2NeRF/assets/75151571/4c66fe79-bdf7-4108-b3e3-15d4f67c9d94)
+
 
 
 ### Visualization on Human3.6M
